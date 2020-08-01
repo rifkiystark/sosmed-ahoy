@@ -3,6 +3,7 @@ export const COLOR = Object.freeze({
   RED: "#F15467",
   WHITE: "#fff",
   PRIMARY: "#0798bb",
+  GRAY: "#7b7b7b",
 });
 
 export const FONT_WEIGHT = Object.freeze({

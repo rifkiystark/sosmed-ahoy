@@ -65,7 +65,10 @@ class CardPost extends Component {
               12 Suka
             </Text>
           </div>
-          <div style={{ overflow: "auto", float: "left", cursor: "pointer" }}>
+          <div
+            style={{ overflow: "auto", float: "left", cursor: "pointer" }}
+            onClick={this.props.clickComment}
+          >
             <Icon
               icon={commentOutlined}
               style={{ fontSize: "32px", float: "left" }}

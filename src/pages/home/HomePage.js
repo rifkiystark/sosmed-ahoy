@@ -7,14 +7,18 @@ import CardPost from "../../components/cardpost/CardPost";
 import "./HomePage.css";
 import Text from "../../components/text/Text";
 import { COLOR } from "../../Const";
+import Card from "../../components/card/Card";
+import ModalComment from "../../components/modalcomment/ModalComment";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [1, 2, 3, 4, 5],
+      statusModalComment: "hide",
     };
     this.fetchData = this.fetchData.bind(this);
+    this.showComment = this.showComment.bind(this);
   }
 
   fetchData = () => {
@@ -25,11 +29,16 @@ class HomePage extends Component {
     }, 2000);
   };
 
+  showComment = (id) => {
+    this.setState({ statusModalComment: "show" });
+  };
+
   render() {
-    const { posts } = this.state;
+    const { posts, statusModalComment } = this.state;
     return (
       <React.Fragment>
         <Navbar />
+        <ModalComment status={statusModalComment} />
         <div className="content">
           <InfiniteScroll
             dataLength={posts.length} //This is important field to render the next data
@@ -48,7 +57,10 @@ class HomePage extends Component {
             }
           >
             {posts.map((post, index) => (
-              <CardPost key={index} />
+              <CardPost
+                key={index}
+                clickComment={() => this.showComment(index)}
+              />
             ))}
           </InfiniteScroll>
         </div>

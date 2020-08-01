@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import "./Card.css";
 class Card extends Component {
   render() {
+    let className = "card";
+    className += this.props.className ? ` ${this.props.className}` : "";
+
     return (
-      <div className="card" style={{ ...this.props.style }}>
+      <div className={className} style={{ ...this.props.style }}>
         {this.props.children}
       </div>
     );
