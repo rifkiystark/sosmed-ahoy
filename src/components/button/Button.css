@@ -1,0 +1,31 @@
+button {
+  font-family: "Open Sans", sans-serif;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  outline: none;
+  border: none;
+  height: 42px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.primary {
+  background: #0798bb;
+}
+
+.primary:hover {
+  background: #0e83a0;
+}
+
+.secondary {
+  background: white;
+  border: 2px solid #0798bb;
+  color: #323232;
+}
+
+.secondary:hover {
+  background: #f3fdff;
+}
