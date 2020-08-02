@@ -24,13 +24,14 @@ class HomePage extends Component {
 
   fetchData = () => {
     let posts = this.state.posts;
-    posts.push([1, 2, 3, 4, 5]);
+    posts.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
     setTimeout(() => {
       this.setState({ posts: posts, statusModalComment: "hide" });
     }, 2000);
   };
 
   showComment = (id) => {
+    console.log(id);
     this.setState({ isShow: true });
   };
 
@@ -64,7 +65,7 @@ class HomePage extends Component {
             {posts.map((post, index) => (
               <CardPost
                 key={index}
-                showComment={() => this.showComment(index, true)}
+                showComment={() => this.showComment(index)}
               />
             ))}
           </InfiniteScroll>

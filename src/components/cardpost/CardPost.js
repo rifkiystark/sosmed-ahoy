@@ -12,9 +12,15 @@ import commentOutlined from "@iconify/icons-ant-design/comment-outlined";
 class CardPost extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isLiked: false };
+    this.onLike = this.onLike.bind(this);
   }
+
+  onLike = () => {
+    this.setState({ isLiked: !this.state.isLiked });
+  };
   render() {
+    const { isLiked } = this.state;
     return (
       <Card
         style={{ width: 620, margin: "24px auto 0 auto", overflow: "auto" }}
@@ -52,11 +58,19 @@ class CardPost extends Component {
               cursor: "pointer",
               marginRight: 16,
             }}
+            onClick={this.onLike}
           >
-            <Icon
-              icon={heartFilled}
-              style={{ color: COLOR.RED, fontSize: "32px", float: "left" }}
-            />
+            {isLiked ? (
+              <Icon
+                icon={heartFilled}
+                style={{ color: COLOR.RED, fontSize: "32px", float: "left" }}
+              />
+            ) : (
+              <Icon
+                icon={heartOutlined}
+                style={{ fontSize: "32px", float: "left" }}
+              />
+            )}
             <Text
               style={{ float: "left", margin: 6 }}
               fontWeight={FONT_WEIGHT.SEMI_BOLD}
