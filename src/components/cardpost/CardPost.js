@@ -67,7 +67,7 @@ class CardPost extends Component {
           </div>
           <div
             style={{ overflow: "auto", float: "left", cursor: "pointer" }}
-            onClick={this.props.clickComment}
+            onClick={this.props.showComment}
           >
             <Icon
               icon={commentOutlined}

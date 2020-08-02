@@ -11,23 +11,17 @@ import ItemComment from "../itemcomment/ItemComment";
 class ModalComment extends Component {
   constructor(props) {
     super(props);
-    this.state = { status: this.props.status };
     this.close = this.close.bind(this);
   }
   close() {
-    this.setState({ status: "hide" });
-  }
-
-  componentWillUpdate(props) {
-    if (props.status != this.state.status) {
-      this.setState({ status: props.status });
-    }
+    this.props.onClose();
   }
 
   render() {
-    const { status } = this.state;
+    const { status } = this.props;
+    const classModal = status ? "show" : "hide";
     return (
-      <div className={`wrapper-comment ${status}`}>
+      <div className={`wrapper-comment ${classModal}`}>
         <Card className="modal-comment">
           <div className="header-modal-comment">
             <Text fontWeight={FONT_WEIGHT.SEMI_BOLD} style={{ float: "left" }}>
