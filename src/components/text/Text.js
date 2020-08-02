@@ -11,7 +11,10 @@ class Text extends Component {
       : FONT_WEIGHT.NORMAL;
 
     return (
-      <div style={{ fontSize, color, fontWeight, ...this.props.style }}>
+      <div
+        style={{ fontSize, color, fontWeight, ...this.props.style }}
+        onClick={this.props.onClick}
+      >
         {this.props.children}
       </div>
     );

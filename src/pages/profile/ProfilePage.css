@@ -1,0 +1,15 @@
+.card-profile {
+  width: 620px;
+  margin: 72px auto 0px;
+  text-align: center;
+}
+
+.avatar-profile {
+  margin-top: 16px;
+}
+
+.header-post-profile {
+  background: #0798bb;
+  margin-top: 32px;
+  padding: 8px;
+}

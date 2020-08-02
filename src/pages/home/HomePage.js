@@ -17,9 +17,9 @@ class HomePage extends Component {
       posts: [1, 2, 3, 4, 5],
       isShow: false,
     };
-    this.fetchData = this.fetchData.bind(this);
-    this.showComment = this.showComment.bind(this);
-    this.closeComment = this.closeComment.bind(this);
+    //this.fetchData = this.fetchData.bind(this);
+    //this.showComment = this.showComment.bind(this);
+    //this.closeComment = this.closeComment.bind(this);
   }
 
   fetchData = () => {

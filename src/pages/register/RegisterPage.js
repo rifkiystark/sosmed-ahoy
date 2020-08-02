@@ -15,19 +15,19 @@ class RegisterPage extends Component {
       fullname: "",
       email: "",
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.goToLogin = this.goToLogin.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
+    //this.goToLogin = this.goToLogin.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  goToLogin() {
+  goToLogin = () => {
     this.props.history.push("/login");
-  }
+  };
 
-  doLogin() {}
+  doLogin = () => {};
 
   render() {
     const { username, password, fullname, email } = this.state;

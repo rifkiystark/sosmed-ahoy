@@ -9,6 +9,7 @@ class Avatar extends Component {
     size = size ? size : 48;
     return (
       <img
+        className={this.props.className}
         src={url}
         style={{ height: size, width: size, borderRadius: "50%", ...style }}
       />

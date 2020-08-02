@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import Card from "../../components/card/Card";
 import Text from "../../components/text/Text";
@@ -14,19 +13,19 @@ class LoginPage extends Component {
       username: "",
       password: "",
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.goToRegister = this.goToRegister.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
+    //this.goToRegister = this.goToRegister.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  goToRegister() {
+  goToRegister = () => {
     this.props.history.push("/register");
-  }
+  };
 
-  doLogin() {}
+  doLogin = () => {};
 
   render() {
     const { username, password } = this.state;

@@ -9,6 +9,8 @@ import heartOutlined from "@iconify/icons-ant-design/heart-outlined";
 import heartFilled from "@iconify/icons-ant-design/heart-filled";
 import commentOutlined from "@iconify/icons-ant-design/comment-outlined";
 
+import "./CardPost.css";
+
 class CardPost extends Component {
   constructor(props) {
     super(props);
@@ -26,40 +28,18 @@ class CardPost extends Component {
         style={{ width: 620, margin: "24px auto 0 auto", overflow: "auto" }}
       >
         <div>
-          <Avatar
-            style={{
-              marginTop: 24,
-              marginLeft: 24,
-              marginRight: 24,
-              marginBottom: 16,
-              float: "left",
-            }}
-          />
-          <div style={{ marginTop: 24, float: "left" }}>
+          <Avatar className="avatar-card-post" />
+          <div className="header-card-post">
             <Text fontWeight={FONT_WEIGHT.BOLD}>Ananda Rifkiy Hasan</Text>
             <Text size={14}>12 Menit yang lalu</Text>
           </div>
         </div>
         <img
-          style={{ width: 620, height: 620, objectFit: "cover" }}
+          className="imgpost-card-post"
           src="https://pbs.twimg.com/profile_images/453956388851445761/8BKnRUXg.png"
         />
-        <div
-          style={{
-            padding: "16px 24px",
-            overflow: "auto",
-            borderBottom: "1px solid #c4c4c4",
-          }}
-        >
-          <div
-            style={{
-              overflow: "auto",
-              float: "left",
-              cursor: "pointer",
-              marginRight: 16,
-            }}
-            onClick={this.onLike}
-          >
+        <div className="footer-card-post">
+          <div className="btn-like-post" onClick={this.onLike}>
             {isLiked ? (
               <Icon
                 icon={heartFilled}
@@ -79,10 +59,7 @@ class CardPost extends Component {
               12 Suka
             </Text>
           </div>
-          <div
-            style={{ overflow: "auto", float: "left", cursor: "pointer" }}
-            onClick={this.props.showComment}
-          >
+          <div className="btn-comment-post" onClick={this.props.showComment}>
             <Icon
               icon={commentOutlined}
               style={{ fontSize: "32px", float: "left" }}
