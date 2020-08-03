@@ -12,3 +12,5 @@ export const FONT_WEIGHT = Object.freeze({
   BOLD: 700,
   EXTRA_BOLD: 800,
 });
+
+export const BASE_URL_API = "http://localhost:8080";

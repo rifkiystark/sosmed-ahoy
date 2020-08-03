@@ -6,12 +6,18 @@ import { COLOR, FONT_WEIGHT } from "../../Const";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
+import axios from "axios";
+import Alert from "../../components/alert/Alert";
+import AuthRepository from "../../repository/AuthRepository";
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password: "",
+      alertMessage: "",
+      showAlert: false,
     };
     //this.handleChange = this.handleChange.bind(this);
     //this.goToRegister = this.goToRegister.bind(this);
@@ -25,10 +31,27 @@ class LoginPage extends Component {
     this.props.history.push("/register");
   };
 
-  doLogin = () => {};
+  doLogin = async () => {
+    try {
+      const dataLogin = await AuthRepository.login(
+        this.state.username,
+        this.state.password
+      );
+      localStorage.setItem("token", dataLogin.data.data.token);
+      localStorage.setItem("type", dataLogin.data.data.type);
+      this.props.history.push("/");
+    } catch (err) {
+      if (err.response) {
+        this.setState({
+          showAlert: true,
+          alertMessage: err.response.data.message,
+        });
+      }
+    }
+  };
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, alertMessage, showAlert } = this.state;
     return (
       <React.Fragment>
         <Text
@@ -40,6 +63,7 @@ class LoginPage extends Component {
           Sosmed Ahoyy
         </Text>
         <Card style={{ padding: 42, margin: "0 auto", width: 480 }}>
+          <Alert show={showAlert} message={alertMessage} />
           <Text
             size={32}
             fontWeight={FONT_WEIGHT.BOLD}
