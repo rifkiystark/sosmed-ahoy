@@ -9,6 +9,9 @@ import heartOutlined from "@iconify/icons-ant-design/heart-outlined";
 import heartFilled from "@iconify/icons-ant-design/heart-filled";
 import commentOutlined from "@iconify/icons-ant-design/comment-outlined";
 
+import moment from "moment";
+import "moment/locale/id";
+
 import "./CardPost.css";
 
 class CardPost extends Component {
@@ -23,6 +26,7 @@ class CardPost extends Component {
   };
   render() {
     const { isLiked } = this.state;
+    const { post } = this.props;
     return (
       <Card
         style={{ width: 620, margin: "24px auto 0 auto", overflow: "auto" }}
@@ -30,17 +34,16 @@ class CardPost extends Component {
         <div>
           <Avatar className="avatar-card-post" />
           <div className="header-card-post">
-            <Text fontWeight={FONT_WEIGHT.BOLD}>Ananda Rifkiy Hasan</Text>
-            <Text size={14}>12 Menit yang lalu</Text>
+            <Text fontWeight={FONT_WEIGHT.BOLD}>{post.user_id.fullname}</Text>
+            <Text size={14}>
+              {moment(post.createdAt).locale("id").fromNow()}
+            </Text>
           </div>
         </div>
-        <img
-          className="imgpost-card-post"
-          src="https://pbs.twimg.com/profile_images/453956388851445761/8BKnRUXg.png"
-        />
+        <img className="imgpost-card-post" src={post.imgsrc} />
         <div className="footer-card-post">
           <div className="btn-like-post" onClick={this.onLike}>
-            {isLiked ? (
+            {post.isLiked ? (
               <Icon
                 icon={heartFilled}
                 style={{ color: COLOR.RED, fontSize: "32px", float: "left" }}
@@ -56,7 +59,7 @@ class CardPost extends Component {
               fontWeight={FONT_WEIGHT.SEMI_BOLD}
               size={14}
             >
-              12 Suka
+              {post.totalLike} Suka
             </Text>
           </div>
           <div className="btn-comment-post" onClick={this.props.showComment}>
@@ -78,10 +81,7 @@ class CardPost extends Component {
           size={14}
           style={{ margin: 24 }}
         >
-          Engkau tetap gagah melawan ombak dan perjuangan hidup ini demi
-          mencapai pada kebahagiaan keluargamu, dimana diwaktu tertentu dirimu
-          tersungkur dan terjatuh, tetapi semangatmu tetap terus berkobar
-          sehingga membuatmu kembali berdiri demi hidup istri dan anakmu.
+          {post.caption}
         </Text>
       </Card>
     );

@@ -9,25 +9,43 @@ import Text from "../../components/text/Text";
 import { COLOR } from "../../Const";
 import Card from "../../components/card/Card";
 import ModalComment from "../../components/modalcomment/ModalComment";
+import PostRepository from "../../repository/PostRepository";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [1, 2, 3, 4, 5],
+      posts: [],
       isShow: false,
+      index: 0,
+      hasMore: true,
     };
     //this.fetchData = this.fetchData.bind(this);
     //this.showComment = this.showComment.bind(this);
     //this.closeComment = this.closeComment.bind(this);
   }
 
-  fetchData = () => {
-    let posts = this.state.posts;
-    posts.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-    setTimeout(() => {
-      this.setState({ posts: posts, statusModalComment: "hide" });
-    }, 2000);
+  componentWillMount() {
+    this.fetchData();
+  }
+
+  fetchData = async () => {
+    try {
+      const postsResponse = await PostRepository.get(this.state.index);
+      const { data, nextIndex } = postsResponse.data;
+      const hasMore = nextIndex != null ? true : false;
+      const newPost = this.state.posts.concat(data);
+      console.log(newPost);
+      this.setState({
+        posts: newPost,
+        statusModalComment: "hide",
+        hasMore,
+        index: nextIndex,
+      });
+      console.log(this.state.hasMore);
+    } catch (err) {
+      console.log(err.response);
+    }
   };
 
   showComment = (id) => {
@@ -40,7 +58,7 @@ class HomePage extends Component {
   };
 
   render() {
-    const { posts, isShow } = this.state;
+    const { posts, isShow, hasMore } = this.state;
     return (
       <React.Fragment>
         <Navbar />
@@ -49,7 +67,7 @@ class HomePage extends Component {
           <InfiniteScroll
             dataLength={posts.length} //This is important field to render the next data
             next={this.fetchData}
-            hasMore={true}
+            hasMore={hasMore}
             loader={
               <div style={{ textAlign: "center", marginTop: 32 }}>
                 <Loading size={32} color={COLOR.PRIMARY} />
@@ -65,6 +83,7 @@ class HomePage extends Component {
             {posts.map((post, index) => (
               <CardPost
                 key={index}
+                post={post}
                 showComment={() => this.showComment(index)}
               />
             ))}
