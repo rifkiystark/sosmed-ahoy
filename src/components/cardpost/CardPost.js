@@ -13,20 +13,29 @@ import moment from "moment";
 import "moment/locale/id";
 
 import "./CardPost.css";
+import LikeRepository from "../../repository/LikeRepository";
 
 class CardPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLiked: false };
+    this.state = { post: this.props.post };
     this.onLike = this.onLike.bind(this);
   }
 
   onLike = () => {
-    this.setState({ isLiked: !this.state.isLiked });
+    const post = this.state.post;
+    post.isLiked = !post.isLiked;
+    if (post.isLiked) {
+      post.totalLike += 1;
+      LikeRepository.like(post._id);
+    } else if (!post.isLiked) {
+      post.totalLike -= 1;
+      LikeRepository.dislike(post._id);
+    }
+    this.setState({ post: post });
   };
   render() {
-    const { isLiked } = this.state;
-    const { post } = this.props;
+    const { post } = this.state;
     return (
       <Card
         style={{ width: 620, margin: "24px auto 0 auto", overflow: "auto" }}
