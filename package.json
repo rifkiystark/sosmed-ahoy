@@ -17,6 +17,7 @@
     "react-scripts": "3.4.1",
     "react-spinners-css": "^1.2.2",
     "serve": "^11.3.2",
+    "simple-react-validator": "^1.5.0",
     "webfontloader": "^1.6.28"
   },
   "scripts": {

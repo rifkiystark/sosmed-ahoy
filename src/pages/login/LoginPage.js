@@ -63,7 +63,7 @@ class LoginPage extends Component {
           Sosmed Ahoyy
         </Text>
         <Card style={{ padding: 42, margin: "0 auto", width: 480 }}>
-          <Alert show={showAlert} message={alertMessage} />
+          <Alert show={showAlert} message={alertMessage} type="danger" />
           <Text
             size={32}
             fontWeight={FONT_WEIGHT.BOLD}

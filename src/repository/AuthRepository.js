@@ -21,7 +21,7 @@ export default {
   },
 
   register: async (fullname, email, username, password) => {
-    await instance({
+    return await instance({
       method: "POST",
       url: "/register",
       data: {
@@ -37,7 +37,7 @@ export default {
   },
 
   me: async (token) => {
-    await instance({
+    return await instance({
       method: "GET",
       url: "/me",
       headers: {
@@ -48,7 +48,7 @@ export default {
   },
 
   logout: async (token) => {
-    await instance({
+    return await instance({
       method: "POST",
       url: "/logout",
       headers: {

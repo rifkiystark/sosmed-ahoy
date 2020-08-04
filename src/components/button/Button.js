@@ -5,7 +5,11 @@ class Button extends Component {
     let { type } = this.props;
     type = type ? type : "primary";
     return (
-      <button className={type} onClick={this.props.onClick}>
+      <button
+        className={type}
+        onClick={this.props.onClick}
+        style={{ ...this.props.style }}
+      >
         {this.props.children}
       </button>
     );

@@ -6,3 +6,12 @@
   width: 100%;
   top: 0;
 }
+
+.item-navbar-dropdown {
+  cursor: pointer;
+  padding: 8px;
+}
+
+.item-navbar-dropdown:hover {
+  background-color: #d4d4d4;
+}

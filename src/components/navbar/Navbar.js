@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "./Navbar.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Text from "../text/Text";
 import { FONT_WEIGHT, COLOR } from "../../Const";
 import Avatar from "../avatar/Avatar";
+import Dropdown from "../dropdown/Dropdown";
+import AuthRepository from "../../repository/AuthRepository";
 
 class Navbar extends Component {
   goToProfile = () => {
@@ -11,6 +13,21 @@ class Navbar extends Component {
   };
   goToHome = () => {
     this.props.history.push("/");
+  };
+  logout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const type = localStorage.getItem("type");
+      const isLogout = await AuthRepository.logout(`${type} ${token}`);
+      console.log(isLogout);
+      if (isLogout) {
+        console.log("jadi");
+        localStorage.clear();
+        this.props.history.push("/login");
+      }
+    } catch (err) {
+      console.log("gagal");
+    }
   };
   render() {
     return (
@@ -29,19 +46,34 @@ class Navbar extends Component {
         >
           Sosmed Ahoy
         </Text>
-        <div
-          style={{ float: "right", margin: 12, cursor: "pointer" }}
-          onClick={this.goToProfile}
+        <Dropdown
+          style={{ float: "right" }}
+          title={
+            <div
+              style={{
+                margin: 12,
+                cursor: "pointer",
+                overflow: "auto",
+              }}
+            >
+              <Avatar size={32} style={{ float: "left" }} />
+              <Text
+                style={{ float: "left", margin: 6 }}
+                fontWeight={FONT_WEIGHT.BOLD}
+                color={COLOR.WHITE}
+              >
+                Ananda Rifkiy Hasan
+              </Text>
+            </div>
+          }
         >
-          <Avatar size={32} style={{ float: "left" }} />
-          <Text
-            style={{ float: "left", margin: 6 }}
-            fontWeight={FONT_WEIGHT.BOLD}
-            color={COLOR.WHITE}
-          >
-            Ananda Rifkiy Hasan
-          </Text>
-        </div>
+          <div className="item-navbar-dropdown" onClick={this.goToProfile}>
+            <Text>Profile Saya</Text>
+          </div>
+          <div className="item-navbar-dropdown" onClick={this.logout}>
+            <Text>Keluar</Text>
+          </div>
+        </Dropdown>
       </div>
     );
   }
