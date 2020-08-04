@@ -68,10 +68,13 @@ class CardPost extends Component {
               fontWeight={FONT_WEIGHT.SEMI_BOLD}
               size={14}
             >
-              {post.totalLike} Suka
+              {`${post.totalLike} Suka`}
             </Text>
           </div>
-          <div className="btn-comment-post" onClick={this.props.showComment}>
+          <div
+            className="btn-comment-post"
+            onClick={() => this.props.showComment()}
+          >
             <Icon
               icon={commentOutlined}
               style={{ fontSize: "32px", float: "left" }}
@@ -81,7 +84,7 @@ class CardPost extends Component {
               fontWeight={FONT_WEIGHT.SEMI_BOLD}
               size={14}
             >
-              12 Komentar
+              {`${post.totalComment} Suka`}
             </Text>
           </div>
         </div>

@@ -19,6 +19,7 @@ class HomePage extends Component {
       isShow: false,
       index: 0,
       hasMore: true,
+      activePost: "",
     };
     //this.fetchData = this.fetchData.bind(this);
     //this.showComment = this.showComment.bind(this);
@@ -49,20 +50,23 @@ class HomePage extends Component {
   };
 
   showComment = (id) => {
-    console.log(id);
-    this.setState({ isShow: true });
+    this.setState({ isShow: true, activePost: id });
   };
 
   closeComment = () => {
-    this.setState({ isShow: false });
+    this.setState({ isShow: false, activePost: "" });
   };
 
   render() {
-    const { posts, isShow, hasMore } = this.state;
+    const { posts, isShow, hasMore, activePost } = this.state;
     return (
       <React.Fragment>
         <Navbar />
-        <ModalComment onClose={this.closeComment} status={isShow} />
+        <ModalComment
+          onClose={this.closeComment}
+          status={isShow}
+          postId={activePost}
+        />
         <div className="content">
           <InfiniteScroll
             dataLength={posts.length} //This is important field to render the next data
@@ -84,7 +88,7 @@ class HomePage extends Component {
               <CardPost
                 key={index}
                 post={post}
-                showComment={() => this.showComment(index)}
+                showComment={() => this.showComment(post._id)}
               />
             ))}
           </InfiniteScroll>

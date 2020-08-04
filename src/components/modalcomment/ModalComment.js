@@ -7,17 +7,40 @@ import { Icon, InlineIcon } from "@iconify/react";
 import closeOutlined from "@iconify/icons-ant-design/close-outlined";
 import Input from "../input/Input";
 import ItemComment from "../itemcomment/ItemComment";
+import CommentRepository from "../../repository/CommentRepository";
 
 class ModalComment extends Component {
   constructor(props) {
     super(props);
+    this.state = { comments: [], shouldLoad: true };
     this.close = this.close.bind(this);
   }
   close() {
     this.props.onClose();
   }
 
+  getComments = async (post_id) => {
+    try {
+      const commentResponse = await CommentRepository.get(post_id);
+      const comments = commentResponse.data;
+      if (comments.status) {
+        this.setState({ comments: comments.data, shouldLoad: false });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  componentDidUpdate() {
+    if (this.props.status) {
+      if (this.state.shouldLoad) {
+        this.getComments(this.props.postId);
+      }
+    }
+  }
+
   render() {
+    const { comments } = this.state;
     const { status } = this.props;
     const classModal = status ? "show" : "hide";
     return (
@@ -34,18 +57,9 @@ class ModalComment extends Component {
             />
           </div>
           <div className="content-modal-comment">
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
-            <ItemComment />
+            {comments.map((comment, index) => (
+              <ItemComment key={index} comment={comment} />
+            ))}
           </div>
           <div className="footer-modal-comment">
             <Input placeholder="Ketik komentar disini" />
