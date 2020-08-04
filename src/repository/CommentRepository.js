@@ -21,4 +21,19 @@ export default {
       },
     });
   },
+
+  post: async (post_id, comment) => {
+    return await instance({
+      method: "POST",
+      url: "/",
+      data: {
+        post_id,
+        comment,
+      },
+      headers: {
+        "content-type": "application/json", // override instance defaults
+        Authorization: getToken(),
+      },
+    });
+  },
 };

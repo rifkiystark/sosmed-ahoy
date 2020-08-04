@@ -53,8 +53,11 @@ class HomePage extends Component {
     this.setState({ isShow: true, activePost: id });
   };
 
-  closeComment = () => {
-    this.setState({ isShow: false, activePost: "" });
+  closeComment = (idPost, totalComment) => {
+    const { posts } = this.state;
+    const indexPost = posts.findIndex((post) => post._id == idPost);
+    posts[indexPost].totalComment = totalComment;
+    this.setState({ isShow: false, activePost: "", posts });
   };
 
   render() {

@@ -14,6 +14,7 @@ class Input extends Component {
         placeholder={placeholder}
         style={this.props.style}
         onChange={this.props.onChange}
+        onKeyPress={this.props.onKeyPress}
       />
     );
   }

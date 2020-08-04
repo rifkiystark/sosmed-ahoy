@@ -12,11 +12,17 @@ import CommentRepository from "../../repository/CommentRepository";
 class ModalComment extends Component {
   constructor(props) {
     super(props);
-    this.state = { comments: [], shouldLoad: true };
+    this.state = {
+      comments: [],
+      shouldLoad: true,
+      postId: "",
+      comment: "",
+    };
     this.close = this.close.bind(this);
   }
   close() {
-    this.props.onClose();
+    this.props.onClose(this.state.postId, this.state.comments.length);
+    this.setState({ comments: [], shouldLoad: true, postId: "", comment: "" });
   }
 
   getComments = async (post_id) => {
@@ -24,7 +30,11 @@ class ModalComment extends Component {
       const commentResponse = await CommentRepository.get(post_id);
       const comments = commentResponse.data;
       if (comments.status) {
-        this.setState({ comments: comments.data, shouldLoad: false });
+        this.setState({
+          comments: comments.data,
+          shouldLoad: false,
+          postId: post_id,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -39,8 +49,33 @@ class ModalComment extends Component {
     }
   }
 
+  postComment = async (e) => {
+    try {
+      const { postId, comment } = this.state;
+      const postDataComment = await CommentRepository.post(postId, comment);
+      console.log(postDataComment);
+      const responseComment = postDataComment.data;
+      if (responseComment.status) {
+        this.setState({ comment: "" });
+        this.getComments(postId);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      this.postComment(e);
+    }
+  };
+
   render() {
-    const { comments } = this.state;
+    const { comments, comment } = this.state;
     const { status } = this.props;
     const classModal = status ? "show" : "hide";
     return (
@@ -62,7 +97,13 @@ class ModalComment extends Component {
             ))}
           </div>
           <div className="footer-modal-comment">
-            <Input placeholder="Ketik komentar disini" />
+            <Input
+              name="comment"
+              value={comment}
+              placeholder="Ketik komentar disini"
+              onKeyPress={this.onKeyPress}
+              onChange={this.handleChange}
+            />
           </div>
         </Card>
       </div>
