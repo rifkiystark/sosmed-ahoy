@@ -6,17 +6,19 @@ import { COLOR, FONT_WEIGHT } from "../../Const";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
-import axios from "axios";
 import Alert from "../../components/alert/Alert";
 import AuthRepository from "../../repository/AuthRepository";
+import SimpleReactValidator from "simple-react-validator";
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
+    this.validator = new SimpleReactValidator();
     this.state = {
       username: "",
       password: "",
       alertMessage: "",
+      isLoadingLogin: false,
       showAlert: false,
     };
     //this.handleChange = this.handleChange.bind(this);
@@ -32,6 +34,12 @@ class LoginPage extends Component {
   };
 
   doLogin = async () => {
+    if (!this.validator.allValid()) {
+      this.validator.showMessages();
+      this.forceUpdate();
+      return;
+    }
+    this.setState({ isLoadingLogin: true });
     try {
       const dataLogin = await AuthRepository.login(
         this.state.username,
@@ -44,6 +52,7 @@ class LoginPage extends Component {
       if (err.response) {
         this.setState({
           showAlert: true,
+          isLoadingLogin: false,
           alertMessage: err.response.data.message,
         });
       }
@@ -51,7 +60,13 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { username, password, alertMessage, showAlert } = this.state;
+    const {
+      username,
+      password,
+      alertMessage,
+      showAlert,
+      isLoadingLogin,
+    } = this.state;
     return (
       <React.Fragment>
         <Text
@@ -75,18 +90,26 @@ class LoginPage extends Component {
             value={username}
             placeholder="Masukkan username"
             name="username"
-            style={{ marginBottom: 16 }}
+            style={{ margonTop: 16 }}
             onChange={this.handleChange}
           />
+          {this.validator.message("username", username, "required|alpha_num")}
           <Input
             value={password}
             type="password"
             name="password"
             placeholder="Masukkan password"
-            style={{ marginBottom: 16 }}
+            style={{ marginTop: 16 }}
             onChange={this.handleChange}
           />
-          <Button onClick={this.doLogin}>Masuk</Button>
+          {this.validator.message("password", password, "required|min:8")}
+          <Button
+            onClick={this.doLogin}
+            loading={isLoadingLogin}
+            style={{ marginTop: 16 }}
+          >
+            masuk
+          </Button>
           <Text
             fontWeight={FONT_WEIGHT.BOLD}
             style={{ textAlign: "center", margin: 16 }}
