@@ -15,8 +15,9 @@
 
 .img-detail-post {
   height: 480px;
-  width: auto;
   display: inline-block;
+  width: 480px;
+  object-fit: cover;
 }
 
 .wrapper-comment-detail-post {

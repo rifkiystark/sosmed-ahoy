@@ -10,6 +10,7 @@
     "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-infinite-scroll-component": "^5.0.5",
     "react-loadingg": "^1.7.2",

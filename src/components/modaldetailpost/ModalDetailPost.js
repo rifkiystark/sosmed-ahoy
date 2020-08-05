@@ -9,31 +9,56 @@ import commentOutlined from "@iconify/icons-ant-design/comment-outlined";
 import "./ModalDetailPost.css";
 import Text from "../text/Text";
 import ItemComment from "../itemcomment/ItemComment";
+import CommentRepository from "../../repository/CommentRepository";
 
 class ModalDetailPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLiked: false };
+    this.state = {
+      comments: [],
+      shouldLoad: true,
+    };
   }
 
   close = () => {
+    this.setState({ comments: [], shouldLoad: true });
     this.props.onClose();
   };
+
+  getComments = async (post_id) => {
+    try {
+      const commentResponse = await CommentRepository.get(post_id);
+      const comments = commentResponse.data;
+      if (comments.status) {
+        this.setState({
+          comments: comments.data,
+          shouldLoad: false,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  componentDidUpdate() {
+    if (this.props.status) {
+      if (this.state.shouldLoad) {
+        this.getComments(this.props.post._id);
+      }
+    }
+  }
   render() {
-    const { isLiked } = this.state;
-    const { status } = this.props;
+    const { comments, shouldLoad } = this.state;
+    const { status, post } = this.props;
     const className = status ? "show" : "hide";
     return (
       <div className={`wrapper-detail-post ${className}`}>
         <Card className="card-detail-post">
-          <img
-            className="img-detail-post"
-            src="https://pbs.twimg.com/profile_images/453956388851445761/8BKnRUXg.png"
-          />
+          <img className="img-detail-post" src={post.imgsrc} />
           <div className="wrapper-comment-detail-post">
             <div className="header-detail-post">
-              <div className="btn-like-post" onClick={this.onLike}>
-                {isLiked ? (
+              <div className="btn-like-post">
+                {post.isLiked ? (
                   <Icon
                     icon={heartFilled}
                     style={{
@@ -53,13 +78,10 @@ class ModalDetailPost extends Component {
                   fontWeight={FONT_WEIGHT.SEMI_BOLD}
                   size={14}
                 >
-                  12 Suka
+                  {`${post.totalLike} Suka`}
                 </Text>
               </div>
-              <div
-                className="btn-comment-post"
-                onClick={this.props.showComment}
-              >
+              <div className="btn-comment-post">
                 <Icon
                   icon={commentOutlined}
                   style={{ fontSize: "32px", float: "left" }}
@@ -69,7 +91,7 @@ class ModalDetailPost extends Component {
                   fontWeight={FONT_WEIGHT.SEMI_BOLD}
                   size={14}
                 >
-                  12 Komentar
+                  {`${post.totalComment} Komentar`}
                 </Text>
               </div>
               <Icon
@@ -78,8 +100,8 @@ class ModalDetailPost extends Component {
                 style={{
                   fontSize: "24px",
                   float: "right",
-                  cursor: "pointer",
                   padding: 4,
+                  cursor: "pointer",
                 }}
               />
             </div>
@@ -89,19 +111,11 @@ class ModalDetailPost extends Component {
                 size={14}
                 style={{ padding: 16, borderBottom: "1px solid #c4c4c4" }}
               >
-                Engkau tetap gagah melawan ombak dan perjuangan hidup ini demi
-                mencapai pada kebahagiaan keluargamu, dimana diwaktu tertentu
-                dirimu tersungkur dan terjatuh, tetapi semangatmu tetap terus
-                berkobar sehingga membuatmu kembali berdiri demi hidup istri dan
-                anakmu.
+                {post.caption}
               </Text>
-              <ItemComment />
-              <ItemComment />
-              <ItemComment />
-              <ItemComment />
-              <ItemComment />
-              <ItemComment />
-              <ItemComment />
+              {comments.map((comment, index) => (
+                <ItemComment key={index} comment={comment} />
+              ))}
             </div>
           </div>
         </Card>

@@ -41,7 +41,10 @@ class CardPost extends Component {
         style={{ width: 620, margin: "24px auto 0 auto", overflow: "auto" }}
       >
         <div>
-          <Avatar className="avatar-card-post" />
+          <Avatar
+            className="avatar-card-post"
+            url={post.user_id.profilePicture}
+          />
           <div className="header-card-post">
             <Text fontWeight={FONT_WEIGHT.BOLD}>{post.user_id.fullname}</Text>
             <Text size={14}>

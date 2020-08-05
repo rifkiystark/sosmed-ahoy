@@ -17,4 +17,15 @@ export default {
       },
     });
   },
+
+  getMe: async () => {
+    return await instance({
+      method: "GET",
+      url: "/me",
+      headers: {
+        "content-type": "application/json", // override instance defaults
+        Authorization: getToken(),
+      },
+    });
+  },
 };

@@ -4,6 +4,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import WebFont from "webfontloader";
 import Routes from "./Routes";
+import { BrowserView, MobileView } from "react-device-detect";
 
 WebFont.load({
   google: {
@@ -13,7 +14,23 @@ WebFont.load({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes />
+    <BrowserView>
+      <Routes />
+    </BrowserView>
+    <MobileView>
+      <h3
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        Bukanya di laptop gan
+      </h3>
+    </MobileView>
   </React.StrictMode>,
   document.getElementById("root")
 );

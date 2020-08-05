@@ -8,11 +8,12 @@ class ImgPost extends Component {
     this.state = {};
   }
   render() {
+    const { post } = this.props;
     return (
       <img
         onClick={this.props.onClick}
         className="postimg-profile"
-        src="https://pbs.twimg.com/profile_images/453956388851445761/8BKnRUXg.png"
+        src={post.imgsrc}
       />
     );
   }

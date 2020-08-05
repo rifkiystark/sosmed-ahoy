@@ -6,8 +6,15 @@ import { FONT_WEIGHT, COLOR } from "../../Const";
 import Avatar from "../avatar/Avatar";
 import Dropdown from "../dropdown/Dropdown";
 import AuthRepository from "../../repository/AuthRepository";
+import data from "@iconify/icons-ant-design/heart-outlined";
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+    };
+  }
   goToProfile = () => {
     this.props.history.push("/me");
   };
@@ -29,7 +36,22 @@ class Navbar extends Component {
       console.log("gagal");
     }
   };
+
+  componentDidMount() {
+    this.getMe();
+  }
+
+  getMe = async () => {
+    try {
+      const user = await AuthRepository.me();
+      console.log(user);
+      this.setState({ user: user.data.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   render() {
+    const { user } = this.state;
     return (
       <div className="navbar">
         <Text
@@ -56,13 +78,17 @@ class Navbar extends Component {
                 overflow: "auto",
               }}
             >
-              <Avatar size={32} style={{ float: "left" }} />
+              <Avatar
+                size={32}
+                style={{ float: "left" }}
+                url={user.profilePicture}
+              />
               <Text
                 style={{ float: "left", margin: 6 }}
                 fontWeight={FONT_WEIGHT.BOLD}
                 color={COLOR.WHITE}
               >
-                Ananda Rifkiy Hasan
+                {user.fullname}
               </Text>
             </div>
           }

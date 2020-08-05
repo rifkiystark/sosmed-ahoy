@@ -13,4 +13,4 @@ export const FONT_WEIGHT = Object.freeze({
   EXTRA_BOLD: 800,
 });
 
-export const BASE_URL_API = "http://localhost:8080";
+export const BASE_URL_API = "https://hidden-garden-16123.herokuapp.com";

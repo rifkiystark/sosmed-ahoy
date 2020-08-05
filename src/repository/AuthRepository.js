@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL_API } from "../Const";
+import { getToken } from "../Helper";
 
 const instance = axios.create({
   baseURL: BASE_URL_API + "/auth",
@@ -36,24 +37,24 @@ export default {
     });
   },
 
-  me: async (token) => {
+  me: async () => {
     return await instance({
       method: "GET",
       url: "/me",
       headers: {
         "content-type": "application/json",
-        authorization: token,
+        authorization: getToken(),
       },
     });
   },
 
-  logout: async (token) => {
+  logout: async () => {
     return await instance({
       method: "POST",
       url: "/logout",
       headers: {
         "content-type": "application/json",
-        authorization: token,
+        authorization: getToken(),
       },
     });
   },
