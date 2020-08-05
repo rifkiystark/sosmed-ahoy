@@ -12,6 +12,9 @@ import commentOutlined from "@iconify/icons-ant-design/comment-outlined";
 import moment from "moment";
 import "moment/locale/id";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import "./CardPost.css";
 import LikeRepository from "../../repository/LikeRepository";
 
@@ -52,7 +55,13 @@ class CardPost extends Component {
             </Text>
           </div>
         </div>
-        <img className="imgpost-card-post" src={post.imgsrc} />
+        <LazyLoadImage
+          className="imgpost-card-post"
+          height={620}
+          effect="blur"
+          src={post.imgsrc} // use normal <img> attributes as props
+          width={620}
+        />
         <div className="footer-card-post">
           <div className="btn-like-post" onClick={this.onLike}>
             {post.isLiked ? (
