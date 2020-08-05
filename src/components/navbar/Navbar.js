@@ -26,15 +26,11 @@ class Navbar extends Component {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
       const isLogout = await AuthRepository.logout(`${type} ${token}`);
-      console.log(isLogout);
-      if (isLogout) {
-        console.log("jadi");
-        localStorage.clear();
-        this.props.history.push("/login");
-      }
     } catch (err) {
       console.log("gagal");
     }
+    localStorage.clear();
+    this.props.history.push("/login");
   };
 
   componentDidMount() {
