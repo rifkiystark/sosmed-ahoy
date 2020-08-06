@@ -22,6 +22,8 @@ class Navbar extends Component {
     this.props.history.push("/");
   };
   logout = async () => {
+    localStorage.clear();
+    this.props.history.push("/login");
     try {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
@@ -29,8 +31,6 @@ class Navbar extends Component {
     } catch (err) {
       console.log("gagal");
     }
-    localStorage.clear();
-    this.props.history.push("/login");
   };
 
   componentDidMount() {

@@ -21,6 +21,7 @@ class RegisterPage extends Component {
       showAlert: false,
       alertMessage: "",
       alertType: "danger",
+      isLoading: false,
     };
     //this.handleChange = this.handleChange.bind(this);
     //this.goToLogin = this.goToLogin.bind(this);
@@ -40,6 +41,7 @@ class RegisterPage extends Component {
       this.forceUpdate();
       return;
     }
+    this.setState({ isLoading: true });
     try {
       const { fullname, email, username, password } = this.state;
       const register = await AuthRepository.register(
@@ -67,6 +69,7 @@ class RegisterPage extends Component {
           showAlert: true,
           alertMessage: errorResponse,
           alertType: "danger",
+          isLoading: false,
         });
       }
     }
@@ -81,6 +84,7 @@ class RegisterPage extends Component {
       showAlert,
       alertMessage,
       alertType,
+      isLoading,
     } = this.state;
     return (
       <React.Fragment>
@@ -130,7 +134,11 @@ class RegisterPage extends Component {
             onChange={this.handleChange}
           />
           {this.validator.message("password", password, "required|min:8")}
-          <Button onClick={this.doRegister} style={{ marginTop: 16 }}>
+          <Button
+            onClick={this.doRegister}
+            style={{ marginTop: 16 }}
+            loading={isLoading}
+          >
             daftar
           </Button>
           <Text
