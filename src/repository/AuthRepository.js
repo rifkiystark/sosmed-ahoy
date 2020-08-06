@@ -48,13 +48,13 @@ export default {
     });
   },
 
-  logout: async () => {
+  logout: async (token) => {
     return await instance({
       method: "POST",
       url: "/logout",
       headers: {
         "content-type": "application/json",
-        authorization: getToken(),
+        authorization: token,
       },
     });
   },

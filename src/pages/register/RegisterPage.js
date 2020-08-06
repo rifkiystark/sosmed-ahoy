@@ -54,6 +54,7 @@ class RegisterPage extends Component {
         this.setState({
           showAlert: true,
           alertType: "success",
+          isLoading: false,
           alertMessage:
             "Registrasi berhasil !\nMohon cek email untuk verifikasi",
         });
