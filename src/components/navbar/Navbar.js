@@ -22,11 +22,11 @@ class Navbar extends Component {
     this.props.history.push("/");
   };
   logout = async () => {
+    const token = localStorage.getItem("token");
+    const type = localStorage.getItem("type");
     localStorage.clear();
     this.props.history.push("/login");
     try {
-      const token = localStorage.getItem("token");
-      const type = localStorage.getItem("type");
       const isLogout = await AuthRepository.logout(`${type} ${token}`);
     } catch (err) {
       console.log("gagal");
