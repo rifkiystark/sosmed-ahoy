@@ -23,6 +23,7 @@ class CardPost extends Component {
     super(props);
     this.state = { post: this.props.post };
     this.onLike = this.onLike.bind(this);
+    console.log(this.props.post);
   }
 
   onLike = () => {
@@ -96,7 +97,7 @@ class CardPost extends Component {
               fontWeight={FONT_WEIGHT.SEMI_BOLD}
               size={14}
             >
-              {`${post.totalComment} Suka`}
+              {`${post.totalComment} Komentar`}
             </Text>
           </div>
         </div>

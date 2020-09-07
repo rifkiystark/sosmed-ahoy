@@ -48,7 +48,8 @@ class ProfilePage extends Component {
   getPost = async () => {
     try {
       const posts = await PostRepository.getMe();
-      this.setState({ posts: posts.data.data });
+      console.log(posts);
+      this.setState({ posts: posts.data.data.posts });
     } catch (err) {
       console.log(err);
     }

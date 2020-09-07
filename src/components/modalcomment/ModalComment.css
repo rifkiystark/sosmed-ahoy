@@ -3,6 +3,7 @@
   height: 100%;
   position: fixed;
   background: #00000066;
+  z-index: 1;
 }
 
 .show {

@@ -13,4 +13,4 @@ export const FONT_WEIGHT = Object.freeze({
   EXTRA_BOLD: 800,
 });
 
-export const BASE_URL_API = "https://hidden-garden-16123.herokuapp.com";
+export const BASE_URL_API = "https://infinite-island-74397.herokuapp.com";

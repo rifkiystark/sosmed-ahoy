@@ -29,9 +29,10 @@ class ModalComment extends Component {
     try {
       const commentResponse = await CommentRepository.get(post_id);
       const comments = commentResponse.data;
+      console.log({ comment: "csd", comments });
       if (comments.status) {
         this.setState({
-          comments: comments.data,
+          comments: comments.data.comments,
           shouldLoad: false,
           postId: post_id,
         });

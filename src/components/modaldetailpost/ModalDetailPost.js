@@ -31,7 +31,7 @@ class ModalDetailPost extends Component {
       const comments = commentResponse.data;
       if (comments.status) {
         this.setState({
-          comments: comments.data,
+          comments: comments.data.comments,
           shouldLoad: false,
         });
       }

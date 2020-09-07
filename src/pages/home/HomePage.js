@@ -33,15 +33,15 @@ class HomePage extends Component {
   fetchData = async () => {
     try {
       const postsResponse = await PostRepository.get(this.state.index);
-      const { data, nextIndex } = postsResponse.data;
-      const hasMore = nextIndex != null ? true : false;
-      const newPost = this.state.posts.concat(data);
-      console.log(newPost);
+      const { posts, nextPage } = postsResponse.data.data;
+      const hasMore = nextPage != null ? true : false;
+      const newPost = this.state.posts.concat(posts);
+      console.log({ new: "d", posts });
       this.setState({
         posts: newPost,
         statusModalComment: "hide",
         hasMore,
-        index: nextIndex,
+        index: nextPage,
       });
       console.log(this.state.hasMore);
     } catch (err) {
